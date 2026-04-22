@@ -23,7 +23,10 @@ class Main {
         }
         trieManager trieTree;
         int uniqueCharsCount = uniqueChars.size();
-        Set<String> words = Arrays.stream(contents.split("\n")).filter(word -> word.length() > 3).collect(Collectors.toSet());
+        HashSet<String> words = Arrays.stream(contents.split("\n")).filter(word -> word.length() > 3).collect(Collectors.toSet());
+        for (String word : words) {
+            for ()
+        }
     }
 
     public static void main(String[] args) {
