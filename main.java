@@ -29,9 +29,10 @@ class main {
     }
 
     public static void main(String[] args) {
-        int rows = 5;
-        int cols = 5;
-        String rawData = "ahaoaiidnputsogadoiacprko".toLowerCase();
+        view.UserInputData boardInfo = view.getBoardSize();
+        int rows = boardInfo.y();
+        int cols = boardInfo.x();
+        String rawData = boardInfo.board().toLowerCase();
         HashSet<Character> uniqueChars = new HashSet<>();
         HashMap<Integer, ArrayList<Character>> boardData = new HashMap<>();
         for (int y = 0; y < rows; y++) {
@@ -47,6 +48,6 @@ class main {
         System.out.println("Finding Words");
         HashSet<String> results = Solver.findAllWords(rawData, uniqueChars, trieTree, boardData, rows, cols);
         System.out.println("Displaying Info");
-        System.out.println(results);
+        view.displayData(results);
     }
 }

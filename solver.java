@@ -64,7 +64,6 @@ class Solver {
                         if (currentWord.length() >= 3 && trieTree.hasWord(currentWord)) {
                             allFoundWords.add(currentWord);
                         }
-
                         masterWord.add(boardData.get(nextCord.y()).get(nextCord.x()));
                         usedCells.add(nextCord);
                         pathCords.add(nextCord);
