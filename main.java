@@ -1,11 +1,7 @@
-import java.lang.reflect.Array;
-import java.util.HashSet;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.stream.Collectors;
 import java.util.*;
+import java.util.stream.Collectors;
 
-class Main {
+class main {
     
     public static trieManager loadTrieManager(String rawData, HashSet<Character> uniqueChars) {
         String contents;
@@ -17,13 +13,9 @@ class Main {
         }
         System.out.println("Getting possible words");
 
-        HashSet<Character> uniqueChars = new HashSet<>();
-        for (char c : rawData.toCharArray()) {
-            uniqueChars.add(c);
-        }
-        trieManager trieTree;
+        trieManager trieTree = new trieManager();
         int uniqueCharsCount = uniqueChars.size();
-        HashSet<String> words = Arrays.stream(contents.split("\n")).filter(word -> word.length() > 3).collect(Collectors.toSet());
+        Set<String> words = Arrays.stream(contents.split("\n")).filter(word -> word.length() > 3).collect(Collectors.toSet());
         for (String word : words) {
             HashSet<Character> charsInWord = new HashSet<>();
             for (Character c : word.toCharArray()) {
@@ -53,8 +45,8 @@ class Main {
             }
             boardData.put(y, rowData);
         }
-        HashSet<String> allFoundWords = new HashSet<>();
         trieManager trieTree = loadTrieManager(rawData, uniqueChars);
-        Solver(rawData, uniqueChars, trieTree, rows, cols);
+        HashSet<String> results = Solver.findAllWords(rawData, uniqueChars, trieTree, boardData, rows, cols);
+        System.out.println("DONE");
     }
 }

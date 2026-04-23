@@ -1,23 +1,23 @@
 
 public  class  trieManager {
-    trieNode root = trieNode();
+    trieNode root = new trieNode();
 
-    public static void insert(String word) {
+    public void insert(String word) {
         trieNode node = root;
         for (Character c : word.toCharArray()) {
-            if (node.children[c] == null) {
-                node.children[c] = trieNode();
+            if (node.children.get(c) == null) {
+                node.children.put(c, new trieNode());
             }
-            node = node.children[c];
+            node = node.children.get(c);
         }
         node.endOfWord = true;
     }
 
-    public static Boolean hasWord(String word) {
+    public Boolean hasWord(String word) {
         trieNode node = root;
         for (Character c : word.toCharArray()) {
-            trieNode nextNode = node.children[c];
-            if (nextNode) {
+            trieNode nextNode = node.children.get(c);
+            if (nextNode != null) {
                 node = nextNode;
             } else {
                 return false;
@@ -26,11 +26,11 @@ public  class  trieManager {
         return node.endOfWord;
     }
 
-    public static Boolean hasPrefix(String word) {
+    public Boolean hasPrefix(String word) {
         trieNode node = root;
         for (Character c : word.toCharArray()) {
-            trieNode nextNode = node.children[c];
-            if (nextNode) {
+            trieNode nextNode = node.children.get(c);
+            if (nextNode != null) {
                 node = nextNode;
             } else {
                 return false;
