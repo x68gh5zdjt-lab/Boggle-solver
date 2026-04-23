@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 class Solver {
     public record Cord(int y, int x) {}
@@ -24,70 +23,52 @@ class Solver {
         return directions;
     }
 
-    public static void backTrack(ArrayList<ArrayList<Cord>> masterBranch, ArrayList<Character> masterWord, HashSet<Cord> usedCells) {
-        if (!masterBranch.isEmpty()) {
-            int lastBranchIdx = masterBranch.size() - 1;
-            ArrayList<Cord> currentList = masterBranch.get(lastBranchIdx);
-            
-            Cord removed = currentList.remove(currentList.size() - 1);
-            usedCells.remove(removed);
-            masterWord.remove(masterWord.size() - 1);
-
-            if (currentList.isEmpty()) {
-                masterBranch.remove(lastBranchIdx);
-            }
-        }
-    }
-
     public static HashSet<String> findAllWords(String rawData, HashSet<Character> uniqueChars, trieManager trieTree, HashMap<Integer, ArrayList<Character>> boardData, int rows, int cols) {
         HashSet<String> allFoundWords = new HashSet<>();
+
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
-                Cord masterCord = new Cord(y, x);
+                Cord startCord = new Cord(y, x);
                 HashSet<Cord> usedCells = new HashSet<>();
-                usedCells.add(masterCord);
-                
-                ArrayList<Cord> nextNodes = getNeighbors(masterCord, usedCells, rows, cols);
-                ArrayList<ArrayList<Cord>> masterBranch = new ArrayList<>();
-                
                 ArrayList<Character> masterWord = new ArrayList<>();
+                ArrayList<Cord> pathCords = new ArrayList<>();
+                ArrayList<ArrayList<Cord>> masterBranch = new ArrayList<>();
+                usedCells.add(startCord);
                 masterWord.add(boardData.get(y).get(x));
+                pathCords.add(startCord);
 
-                if (!nextNodes.isEmpty()) {
-                    masterBranch.add(nextNodes);
-                    int lastIndex = nextNodes.size() - 1;
-                    Cord lastNode = nextNodes.get(lastIndex);
-                    masterWord.add(boardData.get(lastNode.y()).get(lastNode.x()));
-                    usedCells.add(lastNode);
-                } else {
-                    continue;
+                String startWord = String.valueOf(boardData.get(y).get(x));
+                if (trieTree.hasWord(startWord)) {
+                    allFoundWords.add(startWord);
                 }
 
+                masterBranch.add(getNeighbors(startCord, usedCells, rows, cols));
                 while (!masterBranch.isEmpty()) {
-                    String currentWord = masterWord.stream().map(String::valueOf).collect(Collectors.joining());
+                    ArrayList<Cord> currentBranch = masterBranch.get(masterBranch.size() - 1);
 
-                    int lastArrayIdx = masterBranch.size() - 1;
-                    ArrayList<Cord> currentBranch = masterBranch.get(lastArrayIdx);
-                    int lastNodeIdx = currentBranch.size() - 1;
+                    if (currentBranch.isEmpty()) {
+                        masterBranch.remove(masterBranch.size() - 1);
+                        Cord removed = pathCords.remove(pathCords.size() - 1);
+                        usedCells.remove(removed);
+                        masterWord.remove(masterWord.size() - 1);
+                        continue;
+                    }
+
+                    Cord nextCord = currentBranch.remove(currentBranch.size() - 1);
+                    StringBuilder sb = new StringBuilder();
+                    for (Character c : masterWord) {sb.append(c);}
+                    sb.append(boardData.get(nextCord.y()).get(nextCord.x()));
+                    String currentWord = sb.toString();
 
                     if (trieTree.hasPrefix(currentWord)) {
-                        if (trieTree.hasWord(currentWord)) {
+                        if (currentWord.length() >= 3 && trieTree.hasWord(currentWord)) {
                             allFoundWords.add(currentWord);
                         }
 
-                        Cord currentCord = currentBranch.get(lastNodeIdx);
-                        ArrayList<Cord> next = getNeighbors(currentCord, usedCells, rows, cols);
-
-                        if (!next.isEmpty()) {
-                            masterBranch.add(next);
-                            Cord currentNext = next.get(next.size() - 1);
-                            masterWord.add(boardData.get(currentNext.y()).get(currentNext.x()));
-                            usedCells.add(currentNext);
-                        } else {
-                            backTrack(masterBranch, masterWord, usedCells);
-                        }
-                    } else {
-                        backTrack(masterBranch, masterWord, usedCells);
+                        masterWord.add(boardData.get(nextCord.y()).get(nextCord.x()));
+                        usedCells.add(nextCord);
+                        pathCords.add(nextCord);
+                        masterBranch.add(getNeighbors(nextCord, usedCells, rows, cols));
                     }
                 }
             }

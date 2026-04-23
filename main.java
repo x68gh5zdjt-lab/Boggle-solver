@@ -1,40 +1,37 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 class main {
     
     public static trieManager loadTrieManager(String rawData, HashSet<Character> uniqueChars) {
-        String contents;
-        try {
-            contents = new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get("boggleWords.txt")));
-        } catch (Exception e) {
-            System.err.println("Unable to read words from file");
-            return null;
-        }
-        System.out.println("Getting possible words");
-
         trieManager trieTree = new trieManager();
-        int uniqueCharsCount = uniqueChars.size();
-        Set<String> words = Arrays.stream(contents.split("\n")).filter(word -> word.length() > 3).collect(Collectors.toSet());
-        for (String word : words) {
-            HashSet<Character> charsInWord = new HashSet<>();
-            for (Character c : word.toCharArray()) {
-                charsInWord.add(c);
-            }
-            if (uniqueCharsCount <= charsInWord.size()) {
-                if (uniqueChars.containsAll(charsInWord)) {
+        try {
+            List<String> lines = java.nio.file.Files.readAllLines(java.nio.file.Paths.get("boggleWords.txt"));
+            System.out.println("Reading File!");
+            for (String word : lines) {
+                word = word.trim().toLowerCase();
+                if (word.length() < 3) continue;
+                boolean possible = true;
+                for (int i = 0; i < word.length(); i++) {
+                    if (!uniqueChars.contains(word.charAt(i))) {
+                        possible = false;
+                        break;
+                    }
+                }
+                if (possible) {
                     trieTree.insert(word);
                 }
             }
+        } catch (Exception e) {
+            System.err.println("Unable to read file!");
+            return null;
         }
         return trieTree;
     }
 
-
     public static void main(String[] args) {
         int rows = 5;
         int cols = 5;
-        String rawData = "trqpniararteoirtlfdismumu".toLowerCase();
+        String rawData = "ahaoaiidnputsogadoiacprko".toLowerCase();
         HashSet<Character> uniqueChars = new HashSet<>();
         HashMap<Integer, ArrayList<Character>> boardData = new HashMap<>();
         for (int y = 0; y < rows; y++) {
@@ -47,7 +44,9 @@ class main {
             boardData.put(y, rowData);
         }
         trieManager trieTree = loadTrieManager(rawData, uniqueChars);
+        System.out.println("Finding Words");
         HashSet<String> results = Solver.findAllWords(rawData, uniqueChars, trieTree, boardData, rows, cols);
+        System.out.println("Displaying Info");
         System.out.println(results);
     }
 }
