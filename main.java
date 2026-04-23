@@ -30,6 +30,7 @@ class main {
         return trieTree;
     }
 
+
     public static void main(String[] args) {
         int rows = 5;
         int cols = 5;
@@ -47,6 +48,6 @@ class main {
         }
         trieManager trieTree = loadTrieManager(rawData, uniqueChars);
         HashSet<String> results = Solver.findAllWords(rawData, uniqueChars, trieTree, boardData, rows, cols);
-        System.out.println("DONE");
+        System.out.println(results);
     }
 }
