@@ -62,6 +62,7 @@ class view {
                 System.out.print(word + " ");
             }
             System.out.println("");
+            System.out.println("");
         }
     }
 }
