@@ -65,7 +65,7 @@ class main {
         for (int y = 0; y < rows; y++) {
             ArrayList<Character> rowData = new ArrayList<>();
             for (int x = 0; x < cols; x++) {
-                Character c = rawData.charAt(y * rows + x);
+                Character c = rawData.charAt(y * cols + x);
                 rowData.add(c);
                 uniqueChars.add(c);
             }
