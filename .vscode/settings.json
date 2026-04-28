@@ -1,0 +1,9 @@
+{
+    "java.project.sourcePaths": [
+        "lib"
+    ],
+    "java.project.referencedLibraries": [
+        "c:\\Users\\aspate\\Documents\\GitHub\\Boggle-solver\\lib\\hamcrest-core-1.3.jar",
+        "c:\\Users\\aspate\\Documents\\GitHub\\Boggle-solver\\lib\\junit-4.13.2.jar"
+    ]
+}
