@@ -1,8 +1,8 @@
 import java.util.*;
 
 /**
- * The view class handles all console-based interactions with the user
- * It manages data input, validation for board dimensions, and the final formatting of the discovered words
+ * The view class handles all console-based interactions with the user.
+ * It manages data input, validation for board dimensions, and the final formatting of the discovered words.
  */
 class view {
 
@@ -13,9 +13,10 @@ class view {
      * @param board The string of characters representing the grid
      */
     public record UserInputData(int y, int x, String board) {}
-
+    
     /**
-     * Helper method to safely capture an integer from the user with basic error handling
+     * Helper method to safely capture an integer from the user with error handling.
+     * Includes validation to ensure the board dimensions are at least 3.
      * * @param scanner     The shared Scanner instance for reading input
      * @param displayText The prompt shown to the user
      * @param errorText   The message shown if the input is not a valid integer
@@ -26,19 +27,31 @@ class view {
         do { 
             System.out.println(displayText);
             try {
-                s = scanner.nextInt();
-                // Consume the newline character left behind by nextInt()
-                scanner.nextLine();
-                return s;
+                if (scanner.hasNextInt()) { 
+                    s = scanner.nextInt();
+                    // Consume the newline character left behind by nextInt()
+                    scanner.nextLine(); 
+                    
+                    // Logic check: dimensions smaller than 3 might not be viable for Boggle
+                    if (s < 3) {
+                        continue;
+                    }
+                    return s;
+                } else {
+                    // If it's not an int, we MUST consume the bad token to prevent infinite loops
+                    scanner.next(); 
+                    System.out.println(errorText);
+                }
             } catch (Exception e) {
+                // Backup clear the buffer on error
+                if (scanner.hasNext()) scanner.next(); 
                 System.out.println(errorText);
-                scanner.nextLine(); // Clear the buffer on error
             }
         } while (true);
     }
 
     /**
-     * Captures the board character string and ensures it matches the required grid size
+     * Captures the board character string and ensures it matches the required grid size.
      * * @param scanner The shared Scanner instance
      * @param bSize   The expected total number of characters (rows * columns)
      * @return        A string representing the board 
@@ -46,20 +59,16 @@ class view {
     public static String getBoard(Scanner scanner, int bSize) {
         do { 
             System.out.println("Input The Board (expected length " + bSize + "): ");
-            try {
-                String s = scanner.nextLine();
-                if (s.length() == bSize) {
-                    return s;
-                }
-                System.out.println("Error: Board must be exactly " + bSize + " characters.");
-            } catch (Exception e) {
-                System.out.println("Unable To Read Input!");
+            String s = scanner.nextLine(); // Always consume the line
+            if (s.length() == bSize) {
+                return s;
             }
+            System.out.println("Error: Board must be exactly " + bSize + " characters.");
         } while (true);
     }
 
     /**
-     * Input process to gather rows, columns, and board characters
+     * Input process to gather rows, columns, and board characters.
      * * @return A UserInputData record containing the complete board setup
      */
     public static UserInputData getBoardSize() {
@@ -72,8 +81,8 @@ class view {
     }
 
     /**
-     * Formats & prints the found words to the console
-     * Words are grouped by their character length and a total score is calculated
+     * Formats & prints the found words to the console.
+     * Words are grouped by their character length and a total score is calculated.
      * * @param data A set of all unique words found by the solver
      */
     public static void displayData(HashSet<String> data) {
