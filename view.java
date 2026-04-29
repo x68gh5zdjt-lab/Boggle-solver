@@ -32,8 +32,6 @@ class view {
             if (s < 3) {
                 return 0;
             }
-            System.out.println("FUCK U");
-            System.out.println(s);
             return s;
         } catch (Exception e) {
             //System.out.println(errorText);
@@ -65,12 +63,13 @@ class view {
     public static UserInputData getBoardSize() {
         Scanner scanner = new Scanner(System.in);
         int ySize = 0;
-        do {
+        //do {
             ySize = getNumberInput("Rows: ", "Invalid Number!");
             if (ySize >= 3) {
-                break;
+                System.err.println("CORRECT");
+               // break;
             }
-        } while (true);
+        //} while (true);
 
         int xSize = 0;
         do {
