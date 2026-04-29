@@ -63,13 +63,12 @@ class view {
     public static UserInputData getBoardSize() {
         Scanner scanner = new Scanner(System.in);
         int ySize = 0;
-        //do {
+        do {
             ySize = getNumberInput("Rows: ", "Invalid Number!");
             if (ySize >= 3) {
-                System.err.println("CORRECT");
-               // break;
+                break;
             }
-        //} while (true);
+        } while (true);
 
         int xSize = 0;
         do {
