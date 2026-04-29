@@ -23,29 +23,21 @@ class view {
      * @return            The valid integer provided by the user
      */
     public static int getNumberInput(Scanner scanner, String displayText, String errorText) {
-        int s = 0;
-        do { 
-            System.out.println(displayText);
-            try {
-                if (scanner.hasNextInt()) { 
-                    String ss = scanner.nextLine();
-                    s = Integer.parseInt(ss);
-                    // Logic check: dimensions smaller than 3 might not be viable for Boggle
-                    if (s < 3) {
-                        continue;
-                    }
-                    return s;
-                } else {
-                    // If it's not an int, we MUST consume the bad token to prevent infinite loops
-                    scanner.next(); 
-                    System.out.println(errorText);
-                }
-            } catch (Exception e) {
-                // Backup clear the buffer on error
-                if (scanner.hasNext()) scanner.next(); 
-                System.out.println(errorText);
+        System.out.println(displayText);
+        try {
+            String ss = scanner.nextLine();
+            int s = Integer.parseInt(ss);
+            // Logic check: dimensions smaller than 3 might not be viable for Boggle
+            if (s < 3) {
+                return 0;
             }
-        } while (true);
+            return s;
+        } catch (Exception e) {
+            // Backup clear the buffer on error
+            if (scanner.hasNext()) scanner.next(); 
+            System.out.println(errorText);
+        }
+        return 0;
     }
 
     /**
