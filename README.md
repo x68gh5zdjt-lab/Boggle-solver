@@ -18,9 +18,9 @@ apteryx, aqueous, abbozzo
 " 
 
 # How to run? 
-Go to codespaces, either create new or use the one in the project, when you get there go to terminal and run 
-sdk install java 21.0.3-tem
-java main
+Go to codespaces, either create new or use the one in the project, when you get there go to terminal and run \
+sdk install java 21.0.3-tem \
+java main \
 Please come contact us if you cannot get it to work. You should NOT need to compile becuase its already done
 
 # Coverage! 
