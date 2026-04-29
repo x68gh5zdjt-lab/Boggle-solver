@@ -24,7 +24,7 @@ class view {
      */
     public static int getNumberInput(String displayText, String errorText) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println(displayText);
+        System.out.println("Test");
         try {
             String ss = scanner.nextLine();
             int s = Integer.parseInt(ss);
