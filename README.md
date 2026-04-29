@@ -18,10 +18,11 @@ Grapes, skates, plates
 Etc etc etc 
 
 # How to run? 
-To run just download as zip, & run in your prefered complier 
+Go to codespaces, either create new or use the one in the project, when you get there go to terminal and run 
+sdk install java 21.0.3-tem
+javac *java
+java main
+Please come contact us if you cannot get it to work
 
- 
- 
- 
-
->>>>>>> ef7a76c0081a3fd7894688d5165c01eb01079ff6
+# Coverage! 
+<img width="1598" height="899" alt="image" src="https://github.com/user-attachments/assets/883d58bb-b953-4658-9af0-ad6282fcfd3c" />
