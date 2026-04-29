@@ -22,7 +22,8 @@ class view {
      * @param errorText   The message shown if the input is not a valid integer
      * @return            The valid integer provided by the user
      */
-    public static int getNumberInput(Scanner scanner, String displayText, String errorText) {
+    public static int getNumberInput(String displayText, String errorText) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println(displayText);
         try {
             String ss = scanner.nextLine();
@@ -31,11 +32,11 @@ class view {
             if (s < 3) {
                 return 0;
             }
+            System.out.println("FUCK U");
+            System.out.println(s);
             return s;
         } catch (Exception e) {
-            // Backup clear the buffer on error
-            if (scanner.hasNext()) scanner.next(); 
-            System.out.println(errorText);
+            //System.out.println(errorText);
         }
         return 0;
     }
@@ -65,7 +66,7 @@ class view {
         Scanner scanner = new Scanner(System.in);
         int ySize = 0;
         do {
-            ySize = getNumberInput(scanner, "Rows: ", "Invalid Number!");
+            ySize = getNumberInput("Rows: ", "Invalid Number!");
             if (ySize >= 3) {
                 break;
             }
@@ -73,7 +74,7 @@ class view {
 
         int xSize = 0;
         do {
-            xSize = getNumberInput(scanner, "Columns: ", "Invalid Number!");
+            xSize = getNumberInput("Columns: ", "Invalid Number!");
             if (xSize >= 3) {
                 break;
             }
