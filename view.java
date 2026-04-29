@@ -73,8 +73,21 @@ class view {
      */
     public static UserInputData getBoardSize() {
         Scanner scanner = new Scanner(System.in);
-        int ySize = getNumberInput(scanner, "Rows: ", "Invalid Number!");
-        int xSize = getNumberInput(scanner, "Columns: ", "Invalid Number!");
+        int ySize = 0;
+        do {
+            ySize = getNumberInput(scanner, "Rows: ", "Invalid Number!");
+            if (ySize >= 3) {
+                break;
+            }
+        } while (true);
+
+        int xSize = 0;
+        do {
+            xSize = getNumberInput(scanner, "Columns: ", "Invalid Number!");
+            if (xSize >= 3) {
+                break;
+            }
+        } while (true);
         int bSize = ySize * xSize;
         String board = getBoard(scanner, bSize);
         return new UserInputData(ySize, xSize, board);
