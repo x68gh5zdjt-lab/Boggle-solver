@@ -24,17 +24,18 @@ class view {
      */
     public static int getNumberInput(String displayText, String errorText) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Test");
+        System.out.println(displayText);
         try {
             String ss = scanner.nextLine();
             int s = Integer.parseInt(ss);
             // Logic check: dimensions smaller than 3 might not be viable for Boggle
             if (s < 3) {
+                System.out.println("Too Small!");
                 return 0;
             }
             return s;
         } catch (Exception e) {
-            //System.out.println(errorText);
+            System.out.println(errorText);
         }
         return 0;
     }
