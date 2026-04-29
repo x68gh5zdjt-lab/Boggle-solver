@@ -57,7 +57,7 @@ class view {
     public static String getBoard(Scanner scanner, int bSize) {
         do { 
             System.out.println("Input The Board (expected length " + bSize + "): ");
-            String s = scanner.nextLine(); // Always consume the line
+            String s = scanner.nextLine(); // Always eat the line om nom nom 
             if (s.length() == bSize) {
                 return s;
             }
