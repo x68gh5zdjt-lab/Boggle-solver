@@ -28,10 +28,8 @@ class view {
             System.out.println(displayText);
             try {
                 if (scanner.hasNextInt()) { 
-                    s = scanner.nextInt();
-                    // Consume the newline character left behind by nextInt()
-                    scanner.nextLine(); 
-                    
+                    String ss = scanner.nextLine();
+                    s = Integer.parseInt(ss);
                     // Logic check: dimensions smaller than 3 might not be viable for Boggle
                     if (s < 3) {
                         continue;
