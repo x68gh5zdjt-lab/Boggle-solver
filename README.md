@@ -20,8 +20,9 @@ apteryx, aqueous, abbozzo
 # How to run? 
 Go to codespaces, either create new or use the one in the project, when you get there go to terminal and run \
 sdk install java 21.0.3-tem \
+javac *.java (if not compiled or you dont have the files downloaded if locally) \
 java main \
-Please come contact us if you cannot get it to work. You should NOT need to compile becuase its already done
+Please come contact us if you cannot get it to work. 
 
 # MVC Architecture!
 BoggleWords.txt - the word dataset \
@@ -31,7 +32,7 @@ triemanager.java – managers trienodes, handles storing all of the separate tri
 solver.java – Takes all the trie node, figures out words and returns them 
 
 # Design Patterns! 
-Iterator - We iterate over our own data structure (the trie data structure). This requires multiple custom made methods.
+Iterator - We iterate over our own data structure (the trie data structure). This requires multiple custom made methods. \
 Template Method - We have a fixed and set algorithm that is responsible for finding all words in the board.
 
 
