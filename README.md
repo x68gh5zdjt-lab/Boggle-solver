@@ -23,5 +23,17 @@ sdk install java 21.0.3-tem \
 java main \
 Please come contact us if you cannot get it to work. You should NOT need to compile becuase its already done
 
+# MVC Architecture!
+BoggleWords.txt - the word dataset \
+main.java – Loader \
+trienode.java – stores the data for trie nodes \
+triemanager.java – managers trienodes, handles storing all of the separate tries \
+solver.java – Takes all the trie node, figures out words and returns them 
+
+# Design Patterns! 
+Iterator - We iterate over our own data structure (the trie data structure). This requires multiple custom made methods.
+Template Method - We have a fixed and set algorithm that is responsible for finding all words in the board.
+
+
 # Coverage! 
 <img width="1598" height="899" alt="image" src="https://github.com/user-attachments/assets/883d58bb-b953-4658-9af0-ad6282fcfd3c" />
